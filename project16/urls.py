@@ -23,4 +23,6 @@ urlpatterns = [
     path('display_access/',display_access,name='display_access'),
     path('delete_webpage/',delete_webpage,name='delete_webpage'),
     path('update_webpage/',update_webpage,name='update_webpage'),
+    path('create_topic/',create_topic,name='create_topic'),
+    path('create_webpage/',create_webpage,name='create_webpage'),
 ]

@@ -5,9 +5,9 @@ from django.db.models import Q
 from django.http import HttpResponse
 from app.models import *
 def display_topic(request):
-    #topics=Topic.objects.all()
+    topics=Topic.objects.all()
     #topics=Topic.objects.get(topic_name='cricket')
-    topics=Topic.objects.filter(topic_name='cricket')
+    #topics=Topic.objects.filter(topic_name='cricket')
     return render(request,'display_topic.html',context={'ts':topics})
 
 def display_webpage(request):
@@ -64,3 +64,26 @@ def update_webpage(request):
     Webpage.objects.update_or_create(name='Harshad',defaults={'topic_name':t,'name':'Harshad','url':'http://VollyBall.org/'})
     ws=Webpage.objects.all()
     return render(request,'display_webpage.html',context={'ws':ws})
+
+def create_topic(request):
+    if request.method=='POST':
+        topicname=request.POST['topic']
+        t=Topic.objects.get_or_create(topic_name=topicname)[0]
+        t.save()
+        ts=Topic.objects.all()
+        return render(request,'display_topic.html',context={'ts':ts})
+    return render(request,'create_topic.html')
+
+def create_webpage(request):
+    topics=Topic.objects.all()
+    if request.method=='POST':
+        tn=request.POST.get('topic')
+        name=request.POST.get('name')
+        url=request.POST.get('url')
+        t=Topic.objects.get_or_create(topic_name=tn)[0]
+        t.save()
+        w=Webpage.objects.get_or_create(topic_name=t,name=name,url=url)[0]
+        w.save()
+        ws=Webpage.objects.all()
+        return render(request,'display_webpage.html',context={'ws':ws})
+    return render(request,'create_webpage.html',context={'topics':topics})
