@@ -25,4 +25,10 @@ urlpatterns = [
     path('update_webpage/',update_webpage,name='update_webpage'),
     path('create_topic/',create_topic,name='create_topic'),
     path('create_webpage/',create_webpage,name='create_webpage'),
+    path('multi_select/',multi_select,name='multi_select'),
+    path('checkbox/',checkbox,name='checkbox'),
 ]
+
+admin.site.site_header='Harshad'
+admin.site.site_title='Sports'
+admin.site.index_title='DHONI'

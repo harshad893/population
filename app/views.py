@@ -87,3 +87,21 @@ def create_webpage(request):
         ws=Webpage.objects.all()
         return render(request,'display_webpage.html',context={'ws':ws})
     return render(request,'create_webpage.html',context={'topics':topics})
+
+def multi_select(request):
+    topics=Topic.objects.all()
+    if request.method=='POST':
+        topic=request.POST.getlist('topic')
+        webpages=Webpage.objects.none()
+        for i in topic:
+            webpages=webpages | Webpage.objects.filter(topic_name=i)
+        
+        return render(request,'display_webpage.html',context={'ws':webpages})
+        
+    return render(request,'multi_select.html',
+    context={'topics':topics})
+
+def checkbox(request):
+    topics=Topic.objects.all()
+    return render(request,'checkbox.html',
+       context={'topics':topics})
